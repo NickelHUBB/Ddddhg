@@ -2079,7 +2079,7 @@ Toggle.Name = "Toggle"
 Toggle.Parent = ScreenGui
 Toggle.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Toggle.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
-Toggle.Size = UDim2.new(0, 50, 0, 50)
+Toggle.Size = UDim2.new(0, 30, 0, 30)
 Toggle.Font = Enum.Font.Code
 Toggle.Text = "S"
 Toggle.TextColor3 = Color3.fromRGB(255, 0, 0)
@@ -5655,7 +5655,7 @@ end)
 
 Dungeon:AddLine()
 
-Dungeon:AddDropdown("Select Chips",{"Flame","Ice","Quake","Light","Dark","String","Rumble","Magma","Human: Buddha","Sand","Bird: Phoenix"},function(value)
+Dungeon:AddDropdown("Select Chips",{"Flame","Ice","Quake","Light","Dark","String","Rumble","Magma","Human: Buddha","Sand","Bird: Phoenix","Dough"},function(value)
 _G.SelectChip = value
 end)
 
@@ -5689,6 +5689,8 @@ elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Sand-San
 _G.SelectChip = "Sand"
 elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bird-Bird: Phoenix") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bird-Bird: Phoenix") then
 _G.SelectChip = "Bird: Phoenix"
+elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dough-Dough") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dough-Dough") then
+_G.SelectChip = "Dough"
 else
 _G.SelectChip = "Flame"
 end
@@ -5822,7 +5824,8 @@ FruitList = {
 "Shadow-Shadow",
 "Control-Control",
 "Soul-Soul",
-"Dragon-Dragon"
+"Dragon-Dragon",
+"Leopard-Leopard"
 }
 
 _G.SelectFruit = ""
