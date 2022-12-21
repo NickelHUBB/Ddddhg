@@ -2091,14 +2091,14 @@ end)
 --------------------------------------------------------------------
 local RenUi = library:AddWindow("Sonic-HUB",Enum.KeyCode.RightControl)
 --------------------------------------------------------------------
-local Main = RenUi:AddTab("Menu Farm","6026568198")
+local Main = RenUi:AddTab("Auto Farm","6026568198")
 local Combat = RenUi:AddTab("Player","7251993295")
 local Stats = RenUi:AddTab("Stats","7040410130")
 local Teleport = RenUi:AddTab("Teleport Island","6035190846")
 local Dungeon = RenUi:AddTab("Raid","7044284832")
 local DevilFruit = RenUi:AddTab("Devil Fruit","7044233235")
 local Shop = RenUi:AddTab("Shop","6031265976")
-local Misc = RenUi:AddTab("Miscellaneous","6034509993")
+local Misc = RenUi:AddTab("Misc & Esp","6034509993")
 --------------------------------------------------------------------
 Main:AddSeperator("Sonic-HUB")
 Main:AddSeperator("Settings Farm")
