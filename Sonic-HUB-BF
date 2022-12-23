@@ -2098,7 +2098,8 @@ local Teleport = RenUi:AddTab("Teleport Island","6035190846")
 local Dungeon = RenUi:AddTab("Raid","7044284832")
 local DevilFruit = RenUi:AddTab("Devil Fruit","7044233235")
 local Shop = RenUi:AddTab("Shop","6031265976")
-local Misc = RenUi:AddTab("Misc & Esp","6034509993")
+local Esp = RenUi:AddTab("Esp","4483345998")
+local Misc = RenUi:AddTab("Misc","6034509993")
 --------------------------------------------------------------------
 Main:AddSeperator("Sonic-HUB")
 Main:AddSeperator("Settings Farm")
@@ -2829,7 +2830,7 @@ game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 until not _G.AutoFarmFruitMastery or v.Humanoid.Health <= 0 or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
 else
-UseSkill = false
+UseSkill = true
 StartMasteryFruitMagnet = false
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
 end
@@ -3214,7 +3215,7 @@ end
 end
 end)
 
-Main:AddSeperator("Dought")
+Main:AddSeperator("Dough")
 
 local MobKilled = Main:AddLabel("Killed")
 
@@ -3234,7 +3235,7 @@ end)
 end
 end)
 
-Main:AddToggle("Auto Dought Boss",_G.AutoDoughtBoss,function(value)
+Main:AddToggle("Auto Dough Boss",_G.AutoDoughtBoss,function(value)
 _G.AutoDoughtBoss = value
 StopTween(_G.AutoDoughtBoss)
 end)
@@ -4790,6 +4791,10 @@ end)
 end
 end)
 
+Combat:AddButton("Aimbot All",function()
+loadstring(game:HttpGet("https://pastebin.com/raw/PZhxvsme"))()
+end)
+
 Combat:AddToggle("Aimbot Gun",false,function(value)
 _G.Aimbot_Gun = value
 end)
@@ -5467,7 +5472,8 @@ Teleport:AddDropdown("Select Island",{
 "Haunted Castle",
 "Ice Cream Island",
 "Peanut Island",
-"Cake Island"
+"Cake Island",
+"Choclate Island"
 },function(value)
 _G.SelectIsland = value
 end)
@@ -5567,6 +5573,8 @@ elseif _G.SelectIsland == "Peanut Island" then
 topos(CFrame.new(-2062.7475585938, 50.473892211914, -10232.568359375))
 elseif _G.SelectIsland == "Cake Island" then
 topos(CFrame.new(-1884.7747802734375, 19.327526092529297, -11666.8974609375))
+elseif _G.SelectIsland ==  "Choclate Island" then
+topos(CFrame.new(472.8540344238281, 42.652645111083984, -12501.9794921875))
 end
 until not _G.TeleportIsland
 end
@@ -5631,6 +5639,32 @@ elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Is
 topos(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame*CFrame.new(0,80,100))
 elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
 topos(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame*CFrame.new(0,80,100))
+end
+end
+end
+end
+end)
+end)
+
+Dungeon:AddToggle("Kill Aura",_G.Kill_Aura,function(value)
+_G.Kill_Aura = value
+end)
+
+spawn(function()
+pcall(function()
+while wait() do
+if _G.Kill_Aura then
+if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
+for i,v in pairs(game:GetService("Workspace").Enemies:GetDescendants()) do
+if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
+pcall(function()
+repeat wait()
+sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
+v.Humanoid.Health = 0
+v.HumanoidRootPart.CanCollide = false
+until not _G.Kill_Aura or not v.Parent or v.Humanoid.Health <= 0
+end)
+end
 end
 end
 end
@@ -6315,22 +6349,23 @@ end)
 Misc:AddSeperator("Codes")
 
 local x2Code = {
-"3BVISITS",
-"UPD16",
-"FUDD10",
-"BIGNEWS",
-"THEGREATACE",
-"SUB2GAMERROBOT_EXP1",
-"StrawHatMaine",
+"Magicbus",
+"Enyu_is_Pro",
+"GAMER_ROBOT_1M",
+"KittGaming",
+"JCWK",
+"Sub2Fer999",
+"Starcodeheo",
+"TheGreatAce",
 "Sub2OfficialNoobie",
-"SUB2NOOBMASTER123",
-"Sub2Daigrock",
-"Axiore",
+"Bluxxy",
 "TantaiGaming",
-"STRAWHATMAINE"
+"Bignews",
+"StrawHatMaine",
+"SUB2GAMERROBOT_EXP1"
 }
 
-Misc:AddButton("Redeem All Codes ( ntar gw tamabahin )",function()
+Misc:AddButton("Redeem All Codes x2 XP",function()
 function RedeemCode(value)
 game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(value)
 end
@@ -6339,7 +6374,7 @@ RedeemCode(v)
 end
 end)
 
-Misc:AddDropdown("Selected Codes",{"1MLIKES_RESET","THIRDSEA","SUB2GAMERROBOT_RESET1","SUB2UNCLEKIZARU"},function(value)
+Misc:AddDropdown("Selected Codes Reset Stats",{"SUB2GAMERROBOT_RESET1","SUB2UNCLEKIZARU"},function(value)
 _G.CodeSelect = value
 end)
 
@@ -6474,37 +6509,37 @@ Misc:AddButton("Unlock FPS",function()
 setfpscap(100)
 end)
 
-Misc:AddSeperator("ESP")
+Esp:AddSeperator("ESP")
 
-Misc:AddToggle("ESP Player",false,function(value)
+Esp:AddToggle("ESP Player",false,function(value)
 ESPPlayer = value
 while ESPPlayer do wait()
 UpdateEspPlayer()
 end
 end)
 
-Misc:AddToggle("ESP Chest",false,function(value)
+Esp:AddToggle("ESP Chest",false,function(value)
 ChestESP = value
 while ChestESP do wait()
 UpdateChestEsp()
 end
 end)
-
-Misc:AddToggle("ESP Fruit",false,function(value)
+	
+Esp:AddToggle("ESP Fruit",false,function(value)
 DevilFruitESP = value
 while DevilFruitESP do wait()
 UpdateBfEsp()
 end
 end)
 
-Misc:AddToggle("ESP Flower",false,function(value)
+Esp:AddToggle("ESP Flower",false,function(value)
 FlowerESP = value
 while FlowerESP do wait()
 UpdateFlowerEsp()
 end
 end)
 
-Misc:AddToggle("ESP Island",IslandESP,function(value)
+Esp:AddToggle("ESP Island",IslandESP,function(value)
 IslandESP = value
 while IslandESP do wait()
 UpdateIslandESP()
@@ -6623,36 +6658,30 @@ end)
 end
 end)
 
-Misc:AddToggle("Walk on Water",_G.WalkWater,function(value)
-_G.WalkWater = value
+if game.workspace:FindFirstChild("WaterWalk") then
+game.workspace:FindFirstChild("WaterWalk"):Destroy()
+end
+platform = Instance.new("Part")
+platform.Name = "WaterWalk"
+platform.Size = Vector3.new(math.huge, 1, math.huge)
+platform.Transparency = 1
+platform.Anchored = true
+platform.Parent = game.workspace
+
+Misc:AddToggle("Water Walk",waterwalk,function(value)
+WaterWalk = value
 end)
 
 spawn(function()
-pcall(function()
 while wait() do
-if _G.WalkWater then
-if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y <= 1 then
-if not game:GetService("Workspace"):FindFirstChild("Water") then
-local Water = Instance.new("Part", game:GetService("Workspace"))
-Water.Name = "Water"
-Water.Size = Vector3.new(15,0.5,15)
-Water.Anchored = true
-Water.Material = "Neon"
-Water.Color = _G.Color
-game:GetService("Workspace").Water.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.X,game:GetService("Workspace").Camera["Water;"].CFrame.Y,game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+if WaterWalk then
+platform.CanCollide = true
+platform.Position = Vector3.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.X,game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Y * 0 -5, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Z)
 else
-game:GetService("Workspace").Water.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.X,game:GetService("Workspace").Camera["Water;"].CFrame.Y,game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
-end
-elseif game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame.Y >= 1 and game:GetService("Workspace"):FindFirstChild("Water") then
-game:GetService("Workspace"):FindFirstChild("Water"):Destroy()
-end
-else
-if game:GetService("Workspace"):FindFirstChild("Water") then
-game:GetService("Workspace"):FindFirstChild("Water"):Destroy()
+platform.CanCollide = false
+platform.Position = Vector3.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.X,game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Y * 0 -6, game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position.Z)
 end
 end
-end
-end)
 end)
 
 Misc:AddToggle("Fly",false,function(value)
