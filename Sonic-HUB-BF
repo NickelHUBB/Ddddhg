@@ -119,12 +119,12 @@ NameHub.Name = "NameHub"
 NameHub.Parent = Page
 NameHub.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 NameHub.BackgroundTransparency = 1.000
-NameHub.Position = UDim2.new(0.113333493, 0, 0, 0)
+NameHub.Position = UDim2.new(0.113333485, 0, 0, 0)
 NameHub.Size = UDim2.new(0, 110, 0, 20)
 NameHub.Font = Enum.Font.GothamSemibold
 NameHub.Text = text
-NameHub.TextColor3 = Color3.fromRGB(225, 0, 0)
-NameHub.TextSize = 11.000
+NameHub.TextColor3 = Color3.fromRGB(255, 255, 255)
+NameHub.TextSize = 20.000
 NameHub.TextXAlignment = Enum.TextXAlignment.Left
 
 local User = Instance.new("Frame")
@@ -2098,10 +2098,10 @@ local Teleport = RenUi:AddTab("Teleport Island","6035190846")
 local Dungeon = RenUi:AddTab("Raid","7044284832")
 local DevilFruit = RenUi:AddTab("Devil Fruit","7044233235")
 local Shop = RenUi:AddTab("Shop","6031265976")
+local Race = RenUi:AddTab("Race V4","8834748103")
 local Esp = RenUi:AddTab("Esp","4483345998")
 local Misc = RenUi:AddTab("Misc","6034509993")
 --------------------------------------------------------------------
-Main:AddSeperator("Sonic-HUB")
 Main:AddSeperator("Settings Farm")
 
 Time = Main:AddLabel("Server Time")
@@ -2142,78 +2142,6 @@ game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
 end)
 
 Main:AddSeperator("FastAttack and Settings")
-
-Main:AddToggle("SuperFastAttack",function()
-    
-local plr = game.Players.LocalPlayer
-
-local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
-local CbFw2 = CbFw[2]
-
-function GetCurrentBlade()
-local p13 = CbFw2.activeController
-local ret = p13.blades[1]
-if not ret then return end
-while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
-return ret
-end
-function AttackNoCD()
-local AC = CbFw2.activeController
-for i = 1, 1 do
-local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-plr.Character,
-{plr.Character.HumanoidRootPart},
-60
-)
-local cac = {}
-local hash = {}
-for k, v in pairs(bladehit) do
-if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-table.insert(cac, v.Parent.HumanoidRootPart)
-hash[v.Parent] = false
-end
-end
-bladehit = cac
-if #bladehit > 0 then
-local u8 = debug.getupvalue(AC.attack, 5)
-local u9 = debug.getupvalue(AC.attack, 6)
-local u7 = debug.getupvalue(AC.attack, 4)
-local u10 = debug.getupvalue(AC.attack, 7)
-local u12 = (u8 * 798405 + u7 * 727595) % u9
-local u13 = u7 * 798405
-(function()
-u12 = (u12 * u9 + u13) % 1099511627776
-u8 = math.floor(u12 / u9)
-u7 = u12 - u8 * u9
-end)()
-u10 = u10 + 1
-debug.setupvalue(AC.attack, 5, u8)
-debug.setupvalue(AC.attack, 6, u9)
-debug.setupvalue(AC.attack, 4, u7)
-debug.setupvalue(AC.attack, 7, u10)
-pcall(function()
-for k, v in pairs(AC.animator.anims.basic) do
-v:Play()
-end
-end)
-if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-end
-end
-end
-end
-local cac
-if SuperFastMode then
-cac=task.wait
-else
-cac=wait
-end
-while cac() do
-AttackNoCD()
-end
-end)
 
 Main:AddToggle("Fast Attack",true,function(Fast)
 
@@ -2318,7 +2246,7 @@ repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
 AutoHaki()
 PosMon = v.HumanoidRootPart.CFrame
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,40,0))
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.Head.CanCollide = false
@@ -3157,7 +3085,7 @@ EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(80,80,80)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -3198,7 +3126,7 @@ v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.CanCollide = false
 v.Head.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(80,80,80)
-topos(v.HumanoidRootPart.CFrame*CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame*CFrame.new(0,25,0))
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
@@ -3268,7 +3196,7 @@ EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
 sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.huge)
@@ -3297,7 +3225,7 @@ v.Head.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 MagnetDought = true
 PosMonDoughtOpenDoor = v.HumanoidRootPart.CFrame
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
 until not _G.AutoDoughtBoss or not v.Parent or v.Humanoid.Health <= 0 or game:GetService("Workspace").Map.CakeLoaf.BigMirror.Other.Transparency == 0 or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince [Lv. 2300] [Raid Boss]") or KillMob == 0
@@ -3466,7 +3394,7 @@ EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -3522,7 +3450,7 @@ repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
 AutoHaki()
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame*CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame*CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670))
 v.HumanoidRootPart.Transparency = 1
@@ -3567,7 +3495,7 @@ AutoHaki()
 EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670),workspace.CurrentCamera.CFrame)
 end)
@@ -3616,7 +3544,7 @@ AutoHaki()
 EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280, 670))
 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -3671,7 +3599,7 @@ v.Humanoid.WalkSpeed = 0
 v.Head.CanCollide = false
 StartMagnetBoneMon = true
 PosMonBone = v.HumanoidRootPart.CFrame
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
 until not _G.Auto_Farm_Bone or not v.Parent or v.Humanoid.Health <= 0
@@ -3848,7 +3776,7 @@ EquipWeapon(_G.SelectWeapon)
 v.HumanoidRootPart.CanCollide = false
 v.Humanoid.WalkSpeed = 0
 v.HumanoidRootPart.CFrame = PosMonSaber
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1280,672))
@@ -3956,7 +3884,7 @@ pcall(function()
 EquipWeapon(_G.SelectWeapon)
 AutoHaki()
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -3990,7 +3918,7 @@ EquipWeapon(_G.SelectWeapon)
 AutoHaki()
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.CFrame = OldCFrameElephant
 game:GetService("VirtualUser"):CaptureController()
@@ -4040,7 +3968,7 @@ if v.Name == "Stone [Lv. 1550] [Boss]" then
 OldCFrameRainbow = v.HumanoidRootPart.CFrame
 repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.CFrame = OldCFrameRainbow
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
@@ -4060,7 +3988,7 @@ if v.Name == "Island Empress [Lv. 1675] [Boss]" then
 OldCFrameRainbow = v.HumanoidRootPart.CFrame
 repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.CFrame = OldCFrameRainbow
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
@@ -4080,7 +4008,7 @@ if v.Name == "Kilo Admiral [Lv. 1750] [Boss]" then
 OldCFrameRainbow = v.HumanoidRootPart.CFrame
 repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 v.HumanoidRootPart.CFrame = OldCFrameRainbow
@@ -4100,7 +4028,7 @@ if v.Name == "Captain Elephant [Lv. 1875] [Boss]" then
 OldCFrameRainbow = v.HumanoidRootPart.CFrame
 repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 v.HumanoidRootPart.CFrame = OldCFrameRainbow
@@ -4120,7 +4048,7 @@ if v.Name == "Beautiful Pirate [Lv. 1950] [Boss]" then
 OldCFrameRainbow = v.HumanoidRootPart.CFrame
 repeat task.wait()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 v.HumanoidRootPart.CFrame = OldCFrameRainbow
@@ -4211,7 +4139,7 @@ AutoHaki()
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 RengokuMon = v.HumanoidRootPart.CFrame
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 StartRengokuMagnet = true
@@ -4247,7 +4175,7 @@ if string.find(v.Name,"Ship") then
 v.HumanoidRootPart.CanCollide = false
 v.Head.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 EctoplasmMon = v.HumanoidRootPart.CFrame
@@ -4318,7 +4246,7 @@ if v.Name == "Zombie [Lv. 950]" then
 repeat task.wait()
 AutoHaki()
 EquipWeapon(_G.SelectWeapon)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 game:GetService("VirtualUser"):CaptureController()
@@ -4366,7 +4294,7 @@ AutoHaki()
 v.HumanoidRootPart.Transparency = 1
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 PosMonBarto =  v.HumanoidRootPart.CFrame
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
@@ -4398,7 +4326,7 @@ v.HumanoidRootPart.Transparency = 1
 v.HumanoidRootPart.CanCollide = false
 v.HumanoidRootPart.Size = Vector3.new(50,50,50)
 v.HumanoidRootPart.CFrame = OldCFrameBartlio
-topos(v.HumanoidRootPart.CFrame * CFrame.new(5,10,7))
+topos(v.HumanoidRootPart.CFrame * CFrame.new(0,25,0))
 game:GetService'VirtualUser':CaptureController()
 game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
@@ -6509,6 +6437,358 @@ Misc:AddButton("Unlock FPS",function()
 setfpscap(100)
 end)
 
+Race:AddSeperator("Race")
+
+Race:AddToggle("Auto Active Race",_G.AutoAgility,function(value)
+_G.AutoAgility = value
+end)
+
+Race:AddToggle("Infinity Ability Race",function(value)
+InfAbility = value
+if value == false then
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Agility"):Destroy()
+end
+end)
+
+Race:AddSeperator("Race V4 Transform")
+
+Race:AddButton("Mink V4 Dash",function()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsDash = {
+	Character = Player.Character,
+	Duration = .25,
+	CFrame = Player.Character.HumanoidRootPart.CFrame,
+}
+
+local old; old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+	if self.Name == "CommE" then
+		local args = {...}
+
+		if args[1] == "Dodge" then
+			coroutine.wrap(function() require(ReplicatedStorage.Effect.Container.Shared.LightningTP)(ArgsDash) end)()
+		end
+	end
+	
+	return old(self, ...)
+end))
+
+end)
+
+Race:AddButton("Mink V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Mink V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(102, 255, 153),
+	Color2 = Color3.fromRGB(102, 255, 153),
+	Color3 = Color3.fromRGB(102, 255, 153),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("Skypiea V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Skypeian V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(222, 222, 0),
+	Color2 = Color3.fromRGB(222, 222, 0),
+	Color3 = Color3.fromRGB(222, 222, 0),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("Fishman V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Fishman V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(5, 115, 166),
+	Color2 = Color3.fromRGB(5, 115, 166),
+	Color3 = Color3.fromRGB(5, 115, 166),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("Human V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Human V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(166, 0, 0),
+	Color2 = Color3.fromRGB(166, 0, 0),
+	Color3 = Color3.fromRGB(166, 0, 0),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("Ghoul V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Ghoul V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(155, 155, 155),
+	Color2 = Color3.fromRGB(0, 0, 0),
+	Color3 = Color3.fromRGB(155, 155, 155),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("Cybrog V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : Cyborg V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(166, 0, 111),
+	Color2 = Color3.fromRGB(166, 0, 111),
+	Color3 = Color3.fromRGB(166, 0, 111),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddButton("GodRace V4",function()
+require(game:GetService("ReplicatedStorage").Notification).new("Active : GodRace V4!"):Display();
+wait()
+setthreadcontext(5)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local Player = game:GetService("Players").LocalPlayer
+
+local ArgsTransform = {
+	Character = game.Players.LocalPlayer.Character,
+	CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame,
+	Color1 = Color3.fromRGB(0, 0, 0),
+	Color2 = Color3.fromRGB(166, 0, 0),
+	Color3 = Color3.fromRGB(0, 0, 0),
+}
+
+Player.Character.Humanoid:LoadAnimation(ReplicatedStorage.Util.Anims.Storage["2"].RaceTransform):Play()
+
+delay(1, function()
+	pcall(function() require(ReplicatedStorage.Effect.Container.RaceTransformation.Main)(ArgsTransform) end)
+end)
+
+end)
+
+Race:AddSeperator("Config Open Door Lever")
+
+Race:AddButton("By-Pass Enable Secret Door",function()
+wait(3)
+require(game:GetService("ReplicatedStorage").Notification).new("The mysterious door opens..."):Display();
+wait(0.1)
+local lTemple_of_Time1 = workspace.Map:FindFirstChild("Temple of Time");
+local lTweenService1 = game:GetService("TweenService");
+ lTweenService1:Create(lTemple_of_Time1.MainDoor1, TweenInfo.new(4.5, Enum.EasingStyle.Linear), {
+        CFrame = lTemple_of_Time1.MainDoor1.CFrame * CFrame.new(0, -41.953, 0)
+    }):Play();
+    lTweenService1:Create(lTemple_of_Time1.MainDoor2, TweenInfo.new(4.5, Enum.EasingStyle.Linear), {
+        CFrame = lTemple_of_Time1.MainDoor2.CFrame * CFrame.new(0, -41.953, 0)
+    }):Play();
+local temple = game.Players.LocalPlayer.PlayerScripts:FindFirstChild("TemplePuzzle")
+temple:Destroy()
+local lTemple_of_Time1 = workspace.Map:FindFirstChild("Temple of Time");
+local lTweenService1 = game:GetService("TweenService");
+game:GetService("Workspace").Map["Temple of Time"].Lever.Prompt.ProximityPrompt.Triggered:Connect(function()
+          game:GetService("Workspace").Map["Temple of Time"].Lever.Prompt.ProximityPrompt:Destroy()
+        lTemple_of_Time1.Lever.Mid.SFX:Play();
+    lTemple_of_Time1.MainDoorSound.SFX:Play();
+lTemple_of_Time1.Lever.Lever.CFrame = lTemple_of_Time1.Lever.Mid.CFrame * CFrame.Angles(0, 0, -1.5707963267948966) * CFrame.Angles(math.rad(v6.Value * 60 - 45), 0, 0) * CFrame.new(0, 3.6, 0);
+    lTweenService1:Create(lTemple_of_Time1.MainDoor1, TweenInfo.new(4.5, Enum.EasingStyle.Linear), {
+        CFrame = lTemple_of_Time1.MainDoor1.CFrame * CFrame.new(0, -41.953, 0)
+    }):Play();
+    lTweenService1:Create(lTemple_of_Time1.MainDoor2, TweenInfo.new(4.5, Enum.EasingStyle.Linear), {
+        CFrame = lTemple_of_Time1.MainDoor2.CFrame * CFrame.new(0, -41.953, 0)
+    }):Play();
+end)
+
+end)
+
+Race:AddSeperator("Open Race Door")
+
+Race:AddButton("Open Mink V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].MinkCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].MinkCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
+Race:AddButton("Open Skypiea V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].SkypieaCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].SkypieaCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
+Race:AddButton("Open Fishman V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].FishmanCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].FishmanCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
+Race:AddButton("Open Human V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].HumanCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].HumanCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
+Race:AddButton("Open Ghoul V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].GhoulCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].GhoulCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
+Race:AddButton("Open Cyborg V4 Door",function()
+local players = game:GetService("Players")
+local UserInput = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local ContextActionService = game:GetService("ContextActionService")
+wait(0.5)
+local door = (game:GetService("Workspace").Map["Temple of Time"].CyborgCorridor.Door.Door):Destroy()
+local Color1 = (game:GetService("Workspace").Map["Temple of Time"].CyborgCorridor.Door.Entrance)
+Color1.Color = Color3.fromRGB(255, 255, 255)
+wait(0.5)
+require(game:GetService("ReplicatedStorage").Notification).new("🌑 Moonlight Reflected Into The Door 🌑"):Display();
+wait(5)
+require(game:GetService("ReplicatedStorage").Notification).new("Wait What..."):Display();
+wait(2)
+require(game:GetService("ReplicatedStorage").Notification).new("Mysteriously The Door Has Opened...?"):Display();
+end)
+
 Esp:AddSeperator("ESP")
 
 Esp:AddToggle("ESP Player",false,function(value)
@@ -6558,10 +6838,6 @@ InfiniteEnergy = value
 originalstam = LocalPlayer.Character.Energy.Value
 end)
 
-Misc:AddToggle("Auto Active Race",_G.AutoAgility,function(value)
-_G.AutoAgility = value
-end)
-
 spawn(function()
 pcall(function()
 while wait() do
@@ -6570,13 +6846,6 @@ game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("ActivateAbility")
 end
 end
 end)
-end)
-
-Misc:AddToggle("Infinite Ability",false,function(value)
-InfAbility = value
-if value == false then
-game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("Agility"):Destroy()
-end
 end)
 
 spawn(function()
@@ -6663,12 +6932,12 @@ game.workspace:FindFirstChild("WaterWalk"):Destroy()
 end
 platform = Instance.new("Part")
 platform.Name = "WaterWalk"
-platform.Size = Vector3.new(math.huge, 1, math.huge)
-platform.Transparency = 1
+platform.Size = Vector3.new(15, 3, 15)
+platform.Transparency = 0.9
 platform.Anchored = true
 platform.Parent = game.workspace
 
-Misc:AddToggle("Water Walk",waterwalk,function(value)
+Misc:AddToggle("Walk On Water",true,function(value)
 WaterWalk = value
 end)
 
