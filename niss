@@ -2052,31 +2052,23 @@ Tabs.pet:AddButton({
                 end
             end
 
-            task.wait(1)
+            task.wait(2)
 
+            -- Equip kembali yang tersimpan
             for _, uuid in ipairs(saved) do
-                print("🔍 Mencari tool untuk UUID:", uuid)
-
-                local foundTool = false
                 for _, tool in ipairs(LocalPlayer.Backpack:GetChildren()) do
                     if tool:IsA("Tool") then
-                        local toolUuid = tool:GetAttribute("c")
-                        print("🧰 Cek tool:", tool.Name, "| UUID:", toolUuid)
-
+                        local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
-                            foundTool = true
-                            print("✅ Tool ditemukan:", tool.Name, "| Equip ke tangan")
-
+                            -- Equip tool ke tangan dulu
                             LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(tool)
+
+                            -- Lalu baru panggil remote
                             local cframe = getRandomPoint()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
                             break
                         end
                     end
-                end
-
-                if not foundTool then
-                    warn("❌ Tool dengan UUID tidak ditemukan di Backpack:", uuid)
                 end
             end
 
