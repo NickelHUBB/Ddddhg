@@ -313,6 +313,12 @@ function GetAllSprinklerNames()
     return sprinklerList
 end
 
+function EQ(name)
+    if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(name) then
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack[name])
+    end
+end
+
 function PressE()
 	local vim = game:GetService("VirtualInputManager")
 	vim:SendKeyEvent(true, Enum.KeyCode.E, false, game)
@@ -2060,7 +2066,7 @@ Tabs.pet:AddButton({
                     if tool:IsA("Tool") then
                         local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
-                            EquipItemByName(tool)
+                            EQ(tool)
                             local cframe = getRandomPoint()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
                             break
