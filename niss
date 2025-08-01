@@ -2052,7 +2052,7 @@ Tabs.pet:AddButton({
                 end
             end
 
-            task.wait(2)
+            task.wait(1)
 
             -- Equip kembali yang tersimpan
             for _, uuid in ipairs(saved) do
@@ -2060,10 +2060,7 @@ Tabs.pet:AddButton({
                     if tool:IsA("Tool") then
                         local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
-                            -- Equip tool ke tangan dulu
-                            LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(tool)
-
-                            -- Lalu baru panggil remote
+                            EquipItemByName(tool)
                             local cframe = getRandomPoint()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
                             break
