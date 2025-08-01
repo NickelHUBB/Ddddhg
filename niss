@@ -2066,7 +2066,7 @@ Tabs.pet:AddButton({
                     if tool:IsA("Tool") then
                         local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
-                            EQ(tool)
+                            EQ(tool.Name)
                             local cframe = getRandomPoint()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
                             break
