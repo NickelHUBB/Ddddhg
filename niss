@@ -2043,7 +2043,7 @@ end)
 
 local function GetRandomPlantLocation()
     local parts = {}
-    local plantFolder = GetMyFarm().Importand.Plant_Locations
+    local plantFolder = GetMyFarm().Important.Plant_Locations
 
     if plantFolder and plantFolder:IsA("Folder") then
         for _, obj in ipairs(plantFolder:GetChildren()) do
@@ -2201,6 +2201,6 @@ InterfaceManager:BuildInterfaceSection(Tabs.ui)
 SaveManager:BuildConfigSection(Tabs.ui)
 Window:SelectTab(1)
 
-N("Enjoy The Script ;)")
+N("Enjoy The Script ;) XX")
 
 SaveManager:LoadAutoloadConfig()
