@@ -2067,9 +2067,9 @@ Tabs.pet:AddButton({
                         local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
                             EQ(tool.Name)
+                            wait(1)
                             local cframe = getRandomPoint()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
-                            break
                         end
                     end
                 end
@@ -2180,6 +2180,6 @@ InterfaceManager:BuildInterfaceSection(Tabs.ui)
 SaveManager:BuildConfigSection(Tabs.ui)
 Window:SelectTab(1)
 
-N("Enjoy The Script ;)")
+N("Enjoy The Script ;) XXXXXXXXXXXX")
 
 SaveManager:LoadAutoloadConfig()
