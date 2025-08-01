@@ -2054,43 +2054,29 @@ Tabs.pet:AddButton({
 
             task.wait(1)
 
-            local function startsWith(full, part)
-                return string.sub(full, 1, #part) == part
-            end
-
-            -- Equip kembali yang tersimpan
             for _, uuid in ipairs(saved) do
-                local shortUuid = string.sub(uuid, 1, 8) -- ambil 8 karakter depan
-                print("🔍 Mencari tool dengan UUID depan:", shortUuid)
+                print("🔍 Mencari tool untuk UUID:", uuid)
 
                 local foundTool = false
                 for _, tool in ipairs(LocalPlayer.Backpack:GetChildren()) do
                     if tool:IsA("Tool") then
                         local toolUuid = tool:GetAttribute("c")
-                        if toolUuid then
-                            local toolShort = string.sub(toolUuid, 1, 8)
+                        print("🧰 Cek tool:", tool.Name, "| UUID:", toolUuid)
 
-                            print("🧰 Tool:", tool.Name, "| UUID depan:", toolShort)
+                        if toolUuid == uuid then
+                            foundTool = true
+                            print("✅ Tool ditemukan:", tool.Name, "| Equip ke tangan")
 
-                            if startsWith(toolShort, shortUuid) then
-                                foundTool = true
-                                print("✅ Tool ditemukan:", tool.Name, "| Equip ke tangan")
-
-                                -- Equip tool ke tangan
-                                LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(tool)
-
-                                -- Kirim remote EquipPet
-                                local cframe = getRandomPoint()
-                                print("📡 Mengirim remote EquipPet untuk:", uuid)
-                                PetEvent:FireServer("EquipPet", uuid, cframe)
-                                break
-                            end
+                            LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):EquipTool(tool)
+                            local cframe = getRandomPoint()
+                            PetEvent:FireServer("EquipPet", uuid, cframe)
+                            break
                         end
                     end
                 end
 
                 if not foundTool then
-                    warn("❌ Tool dengan UUID depan tidak ditemukan:", shortUuid)
+                    warn("❌ Tool dengan UUID tidak ditemukan di Backpack:", uuid)
                 end
             end
 
