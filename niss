@@ -2041,6 +2041,26 @@ PetDropdownXXXT:OnChanged(function(selected)
     _G.SelectedSlotToLoad = selected
 end)
 
+local function GetRandomPlantLocation()
+    local parts = {}
+    local plantFolder = GetMyFarm().Importand.Plant_Locations
+
+    if plantFolder and plantFolder:IsA("Folder") then
+        for _, obj in ipairs(plantFolder:GetChildren()) do
+            if obj:IsA("Part") then
+                table.insert(parts, obj)
+            end
+        end
+    end
+
+    if #parts > 0 then
+        local randomPart = parts[math.random(1, #parts)]
+        return randomPart.CFrame
+    else
+        return CFrame.new(0, 0, 0) -- fallback jika tidak ada part
+    end
+end
+
 Tabs.pet:AddButton({
     Title = "Load Pet Slot",
     Callback = function()
@@ -2066,10 +2086,11 @@ Tabs.pet:AddButton({
                     if tool:IsA("Tool") then
                         local toolUuid = tool:GetAttribute("PET_UUID")
                         if toolUuid == uuid then
-                            EQ(tool.Name)
+                            EQ(tool) -- equip tool ke humanoid
                             wait(1)
-                            local cframe = getRandomPoint()
+                            local cframe = GetRandomPlantLocation()
                             PetEvent:FireServer("EquipPet", uuid, cframe)
+                            break
                         end
                     end
                 end
