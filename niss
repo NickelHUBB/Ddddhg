@@ -2180,6 +2180,6 @@ InterfaceManager:BuildInterfaceSection(Tabs.ui)
 SaveManager:BuildConfigSection(Tabs.ui)
 Window:SelectTab(1)
 
-N("Enjoy The Script ;)")
+N("Enjoy The Script ;) XXXXXXXXXXXX")
 
 SaveManager:LoadAutoloadConfig()
